@@ -5,6 +5,7 @@ import {
   FETCH_TASKS_SUCCESS,
 } from "./taskTypes";
 import { singleTask } from "../../models";
+import { Dispatch } from "redux";
 
 export const fetchTasksRequest = () => {
   return {
@@ -26,13 +27,12 @@ export const fetchTasksSuccess = (tasks: singleTask[]) => {
 };
 
 export const fetchTasks = () => {
-  return (dispatch: any) => {
-    dispatch(fetchTasksRequest);
+  return (dispatch: Dispatch) => {
+    dispatch(fetchTasksRequest());
     axios
       .get("https://alan-rutyna-api.onrender.com/api/v1/tasks", {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzhkY2FhYjAyYjQzNDgxNDRkMGNkYjAiLCJ1c2VybmFtZSI6ImpvaG4iLCJpYXQiOjE2NzAyNTMzMTYsImV4cCI6MTY3MDg1ODExNn0.QYTsEWkhCY_QxDUAOjAHEN5RP2xlyGvSjETNTpo7DqU",
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
         },
       })
       .then(
