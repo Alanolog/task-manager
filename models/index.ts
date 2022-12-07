@@ -11,6 +11,7 @@ export interface store {
   tasks: {
     loading: Boolean;
     tasks: singleTask[];
+    singleTask: singleTask;
     error: string;
   };
   user: {

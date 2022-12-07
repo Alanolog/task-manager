@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { singleTask, store } from "../models";
-import { fetchTasks } from "../redux";
+import { loginAction, createTask } from "../redux";
 
 export default function Home() {
   const tasksArray: singleTask[] | undefined = useSelector(
@@ -18,22 +18,25 @@ export default function Home() {
         <meta name="description" content="Simple task manager" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <button
-        onClick={() =>
-          dispatch(loginAction("alan12345452@gmail.com", "secret"))
-        }
-      >
-        login
-      </button> */}
       <button
         onClick={() =>
           dispatch(
             //@ts-ignore TS have problems with thunks
-            fetchTasks()
+            loginAction("alan12345452@gmail.com", "secret")
           )
         }
       >
-        fetch
+        login
+      </button>
+      <button
+        onClick={() =>
+          dispatch(
+            //@ts-ignore TS have problems with thunks
+            createTask("Task v2", "Opis randomowego tasku")
+          )
+        }
+      >
+        createTask
       </button>
     </div>
   );

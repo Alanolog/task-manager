@@ -2,11 +2,18 @@ import {
   FETCH_TASKS_REQUEST,
   FETCH_TASKS_FAILURE,
   FETCH_TASKS_SUCCESS,
+  FETCH_SINGLE_TASK_REQUEST,
+  FETCH_SINGLE_TASK_FAILURE,
+  FETCH_SINGLE_TASK_SUCCESS,
+  CREATE_TASK_REQUEST,
+  CREATE_TASK_FAILURE,
+  CREATE_TASK_SUCCESS,
 } from "./taskTypes";
 
 const initialState = {
   loading: false,
   tasks: [],
+  singleTask: {},
   error: "",
 };
 
@@ -25,6 +32,7 @@ const taskReducer = (
       return {
         loading: false,
         tasks: [],
+        singleTask: {},
         error: action.payload,
       };
     }
@@ -32,6 +40,51 @@ const taskReducer = (
       return {
         loading: false,
         tasks: action.payload,
+        singleTask: {},
+        error: "",
+      };
+    }
+    case FETCH_SINGLE_TASK_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case FETCH_SINGLE_TASK_FAILURE: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: {},
+        error: action.payload,
+      };
+    }
+    case FETCH_SINGLE_TASK_SUCCESS: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: action.payload,
+        error: "",
+      };
+    }
+    case CREATE_TASK_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case CREATE_TASK_FAILURE: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: {},
+        error: action.payload,
+      };
+    }
+    case CREATE_TASK_SUCCESS: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: action.payload,
         error: "",
       };
     }
