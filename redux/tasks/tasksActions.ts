@@ -43,8 +43,8 @@ export const fetchTasks = () => {
           dispatch(fetchTasksSuccess(tasks));
         }
       )
-      .catch((error: { message: string }) => {
-        const errorMsg = error.message;
+      .catch((error: { msg: string }) => {
+        const errorMsg = error.msg;
         dispatch(fetchTasksFailure(errorMsg));
       });
   };
