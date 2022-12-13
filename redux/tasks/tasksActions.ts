@@ -12,6 +12,9 @@ import {
   PATCH_TASK_REQUEST,
   PATCH_TASK_FAILURE,
   PATCH_TASK_SUCCESS,
+  DELETE_TASK_REQUEST,
+  DELETE_TASK_FAILURE,
+  DELETE_TASK_SUCCESS,
 } from "./taskTypes";
 import { singleTask } from "../../models";
 import { Dispatch } from "redux";
@@ -92,6 +95,25 @@ export const patchTaskSuccess = (task: singleTask) => {
   };
 };
 
+export const deleteTaskRequest = () => {
+  return {
+    type: DELETE_TASK_REQUEST,
+  };
+};
+export const deleteTaskFailure = (error: any) => {
+  return {
+    type: DELETE_TASK_SUCCESS,
+    payload: error,
+  };
+};
+
+export const deleteTaskSuccess = () => {
+  return {
+    type: PATCH_TASK_SUCCESS,
+    payload: "Success",
+  };
+};
+
 export const createTask = (name: String, description: String) => {
   return (dispatch: Dispatch) => {
     dispatch(createTaskRequest());
@@ -119,12 +141,16 @@ export const createTask = (name: String, description: String) => {
       });
   };
 };
-export const patchTask = (id: string, name?: String, description?: String) => {
+export const patchTask = (
+  taskID: string,
+  name?: String,
+  description?: String
+) => {
   return (dispatch: Dispatch) => {
     dispatch(patchTaskRequest());
     axios
       .patch(
-        `https://alan-rutyna-api.onrender.com/api/v1/tasks/${id}`,
+        `https://alan-rutyna-api.onrender.com/api/v1/tasks/${taskID}`,
         {
           name,
           description,
@@ -143,6 +169,25 @@ export const patchTask = (id: string, name?: String, description?: String) => {
         console.log(error);
         const errorMsg = error.msg;
         dispatch(patchTaskFailure(errorMsg));
+      });
+  };
+};
+export const deleteTask = (taskID: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch(deleteTaskRequest());
+    axios
+      .delete(`https://alan-rutyna-api.onrender.com/api/v1/tasks/${taskID}`, {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        dispatch(deleteTaskSuccess());
+      })
+      .catch((error: { msg: string }) => {
+        console.log(error);
+        const errorMsg = error.msg;
+        dispatch(deleteTaskFailure(errorMsg));
       });
   };
 };

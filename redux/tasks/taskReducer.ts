@@ -11,6 +11,9 @@ import {
   PATCH_TASK_REQUEST,
   PATCH_TASK_FAILURE,
   PATCH_TASK_SUCCESS,
+  DELETE_TASK_REQUEST,
+  DELETE_TASK_FAILURE,
+  DELETE_TASK_SUCCESS,
 } from "./taskTypes";
 
 const initialState = {
@@ -106,6 +109,28 @@ const taskReducer = (
       };
     }
     case PATCH_TASK_SUCCESS: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: action.payload,
+        error: "",
+      };
+    }
+    case DELETE_TASK_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case DELETE_TASK_FAILURE: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: {},
+        error: action.payload,
+      };
+    }
+    case DELETE_TASK_SUCCESS: {
       return {
         loading: false,
         tasks: [],
