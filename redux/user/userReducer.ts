@@ -7,9 +7,16 @@ import {
   POST_LOGIN_SUCCESS,
 } from "./userTypes";
 
+let windowToken;
+if (typeof window !== "undefined") {
+  windowToken = window?.localStorage?.getItem("token");
+}
 const initialState = {
   loading: false,
-  userData: { token: undefined, user: { username: "" } },
+  userData: {
+    token: windowToken,
+    user: { username: "" },
+  },
   error: "",
 };
 
@@ -29,7 +36,7 @@ const userReducer = (
       return {
         loading: false,
         userData: {
-          token: undefined,
+          token: null,
           user: { username: "" },
         },
         error: action.payload,
@@ -55,7 +62,7 @@ const userReducer = (
       return {
         loading: false,
         userData: {
-          token: undefined,
+          token: null,
           user: { username: "" },
         },
         error: action.payload,

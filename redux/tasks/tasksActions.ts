@@ -76,15 +76,18 @@ export const createTask = (name: String, description: String) => {
   return (dispatch: Dispatch) => {
     dispatch(createTaskRequest());
     axios
-      .post("https://alan-rutyna-api.onrender.com/api/v1/tasks", {
-        headers: {
-          Authorization: "Bearer " + window.localStorage.getItem("token"),
-        },
-        body: {
+      .post(
+        "https://alan-rutyna-api.onrender.com/api/v1/tasks",
+        {
           name,
           description,
         },
-      })
+        {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response: AxiosResponse<{ task: singleTask }>) => {
         const task = response?.data?.task;
         dispatch(createTaskSuccess(task));
