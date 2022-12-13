@@ -9,6 +9,9 @@ import {
   CREATE_TASK_REQUEST,
   CREATE_TASK_FAILURE,
   CREATE_TASK_SUCCESS,
+  PATCH_TASK_REQUEST,
+  PATCH_TASK_FAILURE,
+  PATCH_TASK_SUCCESS,
 } from "./taskTypes";
 import { singleTask } from "../../models";
 import { Dispatch } from "redux";
@@ -70,7 +73,24 @@ export const createTaskSuccess = (task: singleTask) => {
   };
 };
 
-// to fix after work - dont use
+export const patchTaskRequest = () => {
+  return {
+    type: PATCH_TASK_REQUEST,
+  };
+};
+export const patchTaskFailure = (error: any) => {
+  return {
+    type: PATCH_TASK_FAILURE,
+    payload: error,
+  };
+};
+
+export const patchTaskSuccess = (task: singleTask) => {
+  return {
+    type: PATCH_TASK_SUCCESS,
+    payload: task,
+  };
+};
 
 export const createTask = (name: String, description: String) => {
   return (dispatch: Dispatch) => {
@@ -96,6 +116,33 @@ export const createTask = (name: String, description: String) => {
         console.log(error);
         const errorMsg = error.msg;
         dispatch(createTaskFailure(errorMsg));
+      });
+  };
+};
+export const patchTask = (id: string, name?: String, description?: String) => {
+  return (dispatch: Dispatch) => {
+    dispatch(patchTaskRequest());
+    axios
+      .patch(
+        `https://alan-rutyna-api.onrender.com/api/v1/tasks/${id}`,
+        {
+          name,
+          description,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response: AxiosResponse<{ task: singleTask }>) => {
+        const task = response?.data?.task;
+        dispatch(patchTaskSuccess(task));
+      })
+      .catch((error: { msg: string }) => {
+        console.log(error);
+        const errorMsg = error.msg;
+        dispatch(patchTaskFailure(errorMsg));
       });
   };
 };

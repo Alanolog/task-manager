@@ -8,6 +8,9 @@ import {
   CREATE_TASK_REQUEST,
   CREATE_TASK_FAILURE,
   CREATE_TASK_SUCCESS,
+  PATCH_TASK_REQUEST,
+  PATCH_TASK_FAILURE,
+  PATCH_TASK_SUCCESS,
 } from "./taskTypes";
 
 const initialState = {
@@ -81,6 +84,28 @@ const taskReducer = (
       };
     }
     case CREATE_TASK_SUCCESS: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: action.payload,
+        error: "",
+      };
+    }
+    case PATCH_TASK_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case PATCH_TASK_FAILURE: {
+      return {
+        loading: false,
+        tasks: [],
+        singleTask: {},
+        error: action.payload,
+      };
+    }
+    case PATCH_TASK_SUCCESS: {
       return {
         loading: false,
         tasks: [],

@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { singleTask, store } from "../models";
-import { loginAction, createTask, fetchTasks } from "../redux";
+import { loginAction, createTask, fetchTasks, patchTask } from "../redux";
 
 export default function Home() {
   const tasksArray: singleTask[] | undefined = useSelector(
@@ -47,6 +47,16 @@ export default function Home() {
         }
       >
         fetchAllTasks
+      </button>
+      <button
+        onClick={() =>
+          dispatch(
+            //@ts-ignore TS have problems with thunks
+            patchTask("63985904e398f5b25bacdfc8", "nazwa taska", "opis taska")
+          )
+        }
+      >
+        patch task
       </button>
     </div>
   );
