@@ -29,3 +29,14 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.authButton {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 5px;
+  background-color: $color-primary;
+  color: $color-background;
+  font-weight: 600;
+  box-shadow: 4px 4px 8px $color-primary;
+  cursor: pointer;
+}

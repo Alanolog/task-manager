@@ -2,9 +2,9 @@
 .label {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.125rem;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 1rem;
   &Error {
     color: $color-red;
     .input {
@@ -16,14 +16,20 @@
   }
   .input {
     font-size: 0.75rem;
-    padding: 0.25rem;
+    padding: 5px 5px 5px 8px;
     border-radius: 5px;
-    border: 0;
-    box-shadow: 2px 2px 10px 2px $color-background;
+    border: 2px solid $color-white;
+    box-shadow: 4px 4px 10px $color-primary;
+    background-color: $color-white;
     color: $color-primary;
+    &:focus {
+      outline: none;
+      border: 2px solid $color-primary;
+    }
     &::placeholder {
       font-size: 0.675rem;
       color: $color-gray;
+      font-weight: 300;
     }
   }
 }
