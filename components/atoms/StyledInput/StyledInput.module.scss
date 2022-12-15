@@ -1,0 +1,29 @@
+@import "../../../styles/colors";
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  &Error {
+    color: $color-red;
+    .input {
+      color: $color-red;
+      &::placeholder {
+        color: $color-red;
+      }
+    }
+  }
+  .input {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 2px 2px 10px 2px $color-background;
+    color: $color-primary;
+    &::placeholder {
+      font-size: 0.675rem;
+      color: $color-gray;
+    }
+  }
+}

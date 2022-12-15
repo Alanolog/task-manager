@@ -1,0 +1,10 @@
+@import "../../../styles/colors";
+.header {
+  color: $color-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: 500;
+  padding-top: 1rem;
+}

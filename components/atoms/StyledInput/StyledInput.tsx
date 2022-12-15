@@ -1,17 +1,33 @@
 import React from "react";
 import S from "./StyledInput.module.scss";
-import { useSelector, useDispatch } from "react-redux";
 
 interface IProps {
-  type: React.HTMLInputTypeAttribute;
+  name: string;
+  type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+  value: string;
+  isCorrect?: boolean;
 }
 
 export const StyledInput: React.FC<IProps> = ({
+  name,
   type = "text",
-  placeholder,
+  placeholder = name,
+  setValue,
+  value,
+  isCorrect = true,
 }) => {
   return (
-    <input className={S.input} type={type} placeholder={placeholder}></input>
+    <label className={[S.label, !isCorrect && S.labelError].join(" ")}>
+      {name}
+      <input
+        className={S.input}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    </label>
   );
 };
