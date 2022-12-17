@@ -5,18 +5,20 @@ interface IProps {
   name: string;
   type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
   value: string;
   isCorrect?: boolean;
+  errorMessage?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const StyledInput: React.FC<IProps> = ({
   name,
   type = "text",
   placeholder = name,
-  setValue,
   value,
   isCorrect = true,
+  errorMessage,
+  onChange,
 }) => {
   return (
     <label className={[S.label, !isCorrect && S.labelError].join(" ")}>
@@ -26,8 +28,9 @@ export const StyledInput: React.FC<IProps> = ({
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={onChange}
       />
+      <p>{isCorrect === false ? errorMessage : "ㅤ"}</p>
     </label>
   );
 };

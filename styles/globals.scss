@@ -37,6 +37,7 @@ a {
   background-color: $color-primary;
   color: $color-background;
   font-weight: 600;
+  transition: 0.3s;
   box-shadow: 4px 4px 8px $color-primary;
   cursor: pointer;
 }

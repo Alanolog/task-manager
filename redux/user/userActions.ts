@@ -64,8 +64,8 @@ export const registerAction = (
         const userData = response?.data;
         dispatch(postRegisterSuccess(userData));
       })
-      .catch((error: { msg: string }) => {
-        const errorMsg = error.msg;
+      .catch((error: { message: string }) => {
+        const errorMsg = error.message;
         dispatch(postRegisterFailure(errorMsg));
       });
   };
@@ -83,8 +83,8 @@ export const loginAction = (email: string, password: string) => {
         const userData = response?.data;
         dispatch(postLoginSuccess(userData));
       })
-      .catch((error: { msg: string }) => {
-        const errorMsg = error.msg;
+      .catch((error: { message: string }) => {
+        const errorMsg = error.message;
         dispatch(PostLoginFailure(errorMsg));
       });
   };
