@@ -41,3 +41,10 @@ a {
   box-shadow: 4px 4px 8px $color-primary;
   cursor: pointer;
 }
+.authMain {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4rem;
+  flex-wrap: wrap;
+}

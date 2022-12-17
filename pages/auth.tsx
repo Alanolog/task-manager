@@ -1,11 +1,12 @@
 import React from "react";
-import { SignUpForm } from "../components";
+import { LoginForm, SignUpForm } from "../components";
 
 export default function Home() {
   return (
     <div>
-      <main>
+      <main className="authMain">
         <SignUpForm />
+        <LoginForm />
       </main>
     </div>
   );
