@@ -1,20 +1,15 @@
 import React from "react";
-import { LoginForm, SignUpForm } from "../components";
 import { useRouter } from "next/router";
 import { useAppSelector } from "../redux/hooks";
 
-export default function Home() {
+export default function TaskManger() {
   const router = useRouter();
   const requestToken = useAppSelector((store) => store.user.userData?.token);
-  if (requestToken?.length > 1) {
-    router.push("/app");
+  if (requestToken?.length === 0) {
+    router.push("/");
   }
+
   React.useEffect(() => {}, [requestToken]);
 
-  return (
-    <main className="authMain">
-      <SignUpForm />
-      <LoginForm />
-    </main>
-  );
+  return <main className="taskManager"></main>;
 }
