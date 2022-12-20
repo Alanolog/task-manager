@@ -2,7 +2,7 @@ import React from "react";
 import S from "./StyledInput.module.scss";
 
 interface IProps {
-  name: string;
+  name?: string;
   type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
   value: string;

@@ -47,4 +47,18 @@ a {
   align-items: flex-start;
   gap: 4rem;
   flex-wrap: wrap;
+  min-height: calc(80vh - 150px);
+}
+.taskManager {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: calc(80vh - 150px);
+  height: 100%;
+  h2 {
+    font-weight: 300;
+    font-size: 2rem;
+  }
 }

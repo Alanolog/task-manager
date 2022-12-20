@@ -1,0 +1,55 @@
+@import "../../../styles/colors";
+
+.addTaskBox {
+  gap: 1rem;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.addTaskButton {
+  padding: 10px 20px;
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+  font-weight: 800;
+  color: $color-primary;
+  box-shadow: 4px 4px 10px $color-primary;
+  background-color: $color-green;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  :focus {
+    outline: none;
+  }
+}
+.addTaskInputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 80%;
+}
+.loader {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+.loader:after {
+  content: " ";
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: loader 1.2s linear infinite;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
