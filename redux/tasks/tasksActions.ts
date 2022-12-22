@@ -134,10 +134,8 @@ export const createTask = (name: String, description: String) => {
         const task = response?.data?.task;
         dispatch(createTaskSuccess(task));
       })
-      .catch((error: { msg: string }) => {
-        console.log(error);
-        const errorMsg = error.msg;
-        dispatch(createTaskFailure(errorMsg));
+      .catch((error) => {
+        dispatch(createTaskFailure(error));
       });
   };
 };
@@ -165,10 +163,8 @@ export const patchTask = (
         const task = response?.data?.task;
         dispatch(patchTaskSuccess(task));
       })
-      .catch((error: { msg: string }) => {
-        console.log(error);
-        const errorMsg = error.msg;
-        dispatch(patchTaskFailure(errorMsg));
+      .catch((error) => {
+        dispatch(patchTaskFailure(error));
       });
   };
 };
@@ -184,10 +180,8 @@ export const deleteTask = (taskID: string) => {
       .then(() => {
         dispatch(deleteTaskSuccess());
       })
-      .catch((error: { msg: string }) => {
-        console.log(error);
-        const errorMsg = error.msg;
-        dispatch(deleteTaskFailure(errorMsg));
+      .catch((error) => {
+        dispatch(deleteTaskFailure(error));
       });
   };
 };
@@ -196,7 +190,7 @@ export const fetchSingleTask = (taskID: String) => {
   return (dispatch: Dispatch) => {
     dispatch(fetchSingleTaskRequest());
     axios
-      .get(`https://alan-rutyna-api.onrender.com/api/v1/task/${taskID}`, {
+      .get(`https://alan-rutyna-api.onrender.com/api/v1/tasks/${taskID}`, {
         headers: {
           Authorization: "Bearer " + window.localStorage.getItem("token"),
         },
@@ -205,9 +199,8 @@ export const fetchSingleTask = (taskID: String) => {
         const task = response?.data?.task;
         dispatch(fetchSingleTaskSuccess(task));
       })
-      .catch((error: { msg: string }) => {
-        const errorMsg = error.msg;
-        dispatch(fetchSingleTaskFailure(errorMsg));
+      .catch((error) => {
+        dispatch(fetchSingleTaskFailure(error));
       });
   };
 };
@@ -229,9 +222,8 @@ export const fetchTasks = () => {
           dispatch(fetchTasksSuccess(tasks));
         }
       )
-      .catch((error: { msg: string }) => {
-        const errorMsg = error.msg;
-        dispatch(fetchTasksFailure(errorMsg));
+      .catch((error) => {
+        dispatch(fetchTasksFailure(error));
       });
   };
 };

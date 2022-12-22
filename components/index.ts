@@ -1,5 +1,7 @@
 // ATOMS
 export { StyledInput } from "./atoms/StyledInput";
+export { SingleTask } from "./atoms/SingleTask";
+export { UpdateTaskButton } from "./atoms/UpdateTaskButton";
 
 // MOLECULES
 export { SignUpForm } from "./molecules/SignUpForm";
