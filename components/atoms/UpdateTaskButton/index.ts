@@ -1,1 +1,2 @@
-export { UpdateTaskButton } from "./UpdateTaskButton";
+import UpdateTaskButton from "./UpdateTaskButton";
+export { UpdateTaskButton };

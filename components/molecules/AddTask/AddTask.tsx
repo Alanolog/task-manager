@@ -1,21 +1,40 @@
 import React from "react";
 import S from "./AddTask.module.scss";
-import { StyledInput } from "../../index";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { StyledInput, StyledTextarea } from "../../index";
 import { createTask } from "../../../redux";
 
-export const AddTask: React.FC = () => {
-  const dispatch = useAppDispatch();
+import { useAppDispatch } from "../../../redux/hooks";
+import { store } from "../../../models";
+import { connect, ConnectedProps } from "react-redux";
 
+const mapStateToProps = (store: store) => ({
+  isWaiting: store.tasks.loading,
+});
+
+const mapDispatchToProps = () => {
+  const dispatch = useAppDispatch();
+  return {
+    createTask: (name: String, description: String) =>
+      dispatch(
+        //@ts-ignore redux thunk dont work with ts properly
+        createTask(name, description)
+      ),
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+interface Props extends PropsFromRedux {}
+
+const AddTask: React.FC<Props> = ({ isWaiting, createTask }) => {
   const [name, setName] = React.useState({ value: "", isValid: true });
   const [description, setDescription] = React.useState({
     value: "",
     isValid: true,
   });
-  const isWaiting = useAppSelector((store) => store.tasks.loading);
 
-  const isValidName = (name: string) => name.length <= 20 && name.length >= 1;
-  const isValidDescription = (description: string) => description.length >= 1;
+  const isValidName = (name: string) => name?.length <= 20 && name?.length >= 1;
+  const isValidDescription = (description: string) => description?.length >= 1;
   const isValid =
     isValidName(name.value) && isValidDescription(description.value);
 
@@ -30,7 +49,7 @@ export const AddTask: React.FC = () => {
     });
     if (isValid) {
       //@ts-ignore redux thunk dont work with ts properly
-      dispatch(createTask(name.value, description.value));
+      createTask(name.value, description.value);
     }
   };
 
@@ -50,7 +69,7 @@ export const AddTask: React.FC = () => {
           placeholder={"task name"}
           errorMessage={"name should be between 1 and 20 characters"}
         />
-        <StyledInput
+        <StyledTextarea
           value={description.value}
           onChange={(e) =>
             setDescription({
@@ -73,8 +92,10 @@ export const AddTask: React.FC = () => {
           isValid && !isWaiting ? createTaskBtnHandler(e) : e.preventDefault()
         }
       >
-        {isWaiting ? <div className={S.loader}></div> : "+"}
+        {isWaiting ? <div className="loader"></div> : "+"}
       </button>
     </div>
   );
 };
+
+export default connector(AddTask);

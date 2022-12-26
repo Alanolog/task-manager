@@ -1,0 +1,1 @@
+export { StyledTextarea } from "./StyledTextarea";

@@ -1,23 +1,48 @@
 import React from "react";
+import { connect, ConnectedProps } from "react-redux";
 import { useRouter } from "next/router";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { AddTask, SingleTask } from "../components";
-import { fetchSingleTask } from "../redux";
+import { fetchTasks } from "../redux";
+import { singleTask, store } from "../models";
 
-export default function TaskManger() {
-  const router = useRouter();
+const mapStateToProps = (store: store) => ({
+  requestToken: store.user.userData?.token,
+  requestUsername: store.user.userData?.user?.username,
+  tasks: store.tasks.tasks,
+});
+
+const mapDispatchToProps = () => {
   const dispatch = useAppDispatch();
+  return {
+    fetchTasks: () =>
+      dispatch(
+        //@ts-ignore redux thunk dont work with ts properly
+        fetchTasks()
+      ),
+  };
+};
 
-  const requestToken = useAppSelector((store) => store.user.userData?.token);
-  const requestUsername = useAppSelector(
-    (store) => store.user.userData?.user?.username
-  );
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+interface Props extends PropsFromRedux {}
+
+const TaskManger = ({
+  requestToken,
+  requestUsername,
+  tasks,
+  fetchTasks,
+}: Props) => {
+  const router = useRouter();
 
   React.useEffect(() => {
     if (requestToken?.length < 1 || !requestToken) {
       router.push("/");
     }
   }, [requestToken]);
+  if ((tasks.length = 0)) {
+    fetchTasks();
+  }
 
   return (
     <main className="taskManager">
@@ -27,7 +52,10 @@ export default function TaskManger() {
         <h2>Welcome back</h2>
       )}
       <AddTask />
-      <div>
+      <div className="tasksList">
+        {tasks.map((el: singleTask, id: number) => {
+          return <SingleTask task={el} key={id} />;
+        })}
         <SingleTask
           task={{
             name: "nazwa",
@@ -43,4 +71,5 @@ export default function TaskManger() {
       </div>
     </main>
   );
-}
+};
+export default connector(TaskManger);

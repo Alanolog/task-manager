@@ -13,7 +13,7 @@ export const SingleTask: React.FC<IProps> = ({ task }) => {
   return (
     <div className={S.task}>
       <h5>{task.name}</h5>
-      <UpdateTaskButton taskID={task._id} />
+      <UpdateTaskButton taskID={task._id} taskData={task} />
     </div>
   );
 };

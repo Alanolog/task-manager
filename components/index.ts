@@ -2,6 +2,7 @@
 export { StyledInput } from "./atoms/StyledInput";
 export { SingleTask } from "./atoms/SingleTask";
 export { UpdateTaskButton } from "./atoms/UpdateTaskButton";
+export { StyledTextarea } from "./atoms/StyledTextarea";
 
 // MOLECULES
 export { SignUpForm } from "./molecules/SignUpForm";

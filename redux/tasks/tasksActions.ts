@@ -19,6 +19,11 @@ import {
 import { singleTask } from "../../models";
 import { Dispatch } from "redux";
 
+let windowToken: string | null;
+if (typeof window !== "undefined") {
+  windowToken = window?.localStorage?.getItem("token");
+}
+
 export const fetchTasksRequest = () => {
   return {
     type: FETCH_TASKS_REQUEST,
@@ -126,7 +131,7 @@ export const createTask = (name: String, description: String) => {
         },
         {
           headers: {
-            Authorization: "Bearer " + window.localStorage.getItem("token"),
+            Authorization: "Bearer " + windowToken,
           },
         }
       )
@@ -155,7 +160,7 @@ export const patchTask = (
         },
         {
           headers: {
-            Authorization: "Bearer " + window.localStorage.getItem("token"),
+            Authorization: "Bearer " + windowToken,
           },
         }
       )
@@ -174,7 +179,7 @@ export const deleteTask = (taskID: string) => {
     axios
       .delete(`https://alan-rutyna-api.onrender.com/api/v1/tasks/${taskID}`, {
         headers: {
-          Authorization: "Bearer " + window.localStorage.getItem("token"),
+          Authorization: "Bearer " + windowToken,
         },
       })
       .then(() => {
@@ -192,7 +197,7 @@ export const fetchSingleTask = (taskID: String) => {
     axios
       .get(`https://alan-rutyna-api.onrender.com/api/v1/tasks/${taskID}`, {
         headers: {
-          Authorization: "Bearer " + window.localStorage.getItem("token"),
+          Authorization: "Bearer " + windowToken,
         },
       })
       .then((response: AxiosResponse<{ task: singleTask }>) => {
@@ -211,7 +216,7 @@ export const fetchTasks = () => {
     axios
       .get("https://alan-rutyna-api.onrender.com/api/v1/tasks", {
         headers: {
-          Authorization: "Bearer " + window.localStorage.getItem("token"),
+          Authorization: "Bearer " + windowToken,
         },
       })
       .then(

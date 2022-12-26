@@ -1,0 +1,46 @@
+@import "../../../styles/colors";
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 250px;
+  .textarea {
+    font-size: 0.75rem;
+    padding: 5px 5px 5px 8px;
+    border-radius: 5px;
+    border: 2px solid $color-white;
+    box-shadow: 4px 4px 10px $color-primary;
+    background-color: $color-white;
+    color: $color-primary;
+    min-height: 30px;
+    height: 30px;
+    max-height: 150px;
+    resize: none;
+    &:focus {
+      outline: none;
+      border: 2px solid $color-primary;
+    }
+    &::placeholder {
+      font-size: 0.675rem;
+      color: $color-gray;
+      font-weight: 300;
+    }
+  }
+  p {
+    color: $color-red;
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  &Error {
+    color: $color-red;
+    .textarea {
+      color: $color-red;
+      &::placeholder {
+        color: $color-red;
+      }
+    }
+  }
+}
