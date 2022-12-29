@@ -19,10 +19,15 @@ const mapDispatchToProps = () => {
         //@ts-ignore redux thunk dont work with ts properly
         fetchSingleTask(taskID)
       ),
-    patchTask: (taskID: String, name: String, description: String) =>
+    patchTask: (
+      taskID: String,
+      name: String,
+      description: String,
+      isDone: boolean
+    ) =>
       dispatch(
         //@ts-ignore redux thunk dont work with ts properly
-        patchTask(taskID, name, description)
+        patchTask(taskID, name, description, isDone)
       ),
   };
 };
@@ -39,23 +44,24 @@ const UpdateTaskButton: React.FC<IProps> = ({
   task,
   isWaiting,
   taskID,
-  fetchSingleTask,
   patchTask,
   taskData,
 }) => {
   const [isModalOpened, setIsModalOpened] = React.useState(false);
 
   const [name, setName] = React.useState({
-    value: "",
+    value: taskData.name,
     isValid: true,
   });
   const [description, setDescription] = React.useState({
-    value: "",
+    value: taskData.description,
     isValid: true,
   });
+  const [isDone, setIsDone] = React.useState(taskData.isDone);
 
   const isValidName = (name: string) => name?.length <= 20 && name?.length >= 1;
-  const isValidDescription = (description: string) => description?.length >= 1;
+  const isValidDescription = (description: string) =>
+    description?.length >= 1 && description.length <= 200;
   const isValid =
     isValidName(name.value) && isValidDescription(description.value);
 
@@ -69,15 +75,20 @@ const UpdateTaskButton: React.FC<IProps> = ({
       isValid: isValidDescription(description.value),
     });
     if (isValid) {
-      patchTask(taskID, name.value, description.value);
+      patchTask(taskID, name.value, description.value, isDone);
     }
   };
   React.useEffect(() => {
-    setName({ value: task.name, isValid: isValidName(task.name) });
-    setDescription({
-      value: task.description,
-      isValid: isValidDescription(task.description),
-    });
+    if (Object.keys(task).length !== 0) {
+      setDescription({
+        value: "",
+        isValid: true,
+      });
+      setName({
+        value: "",
+        isValid: true,
+      });
+    }
   }, [task]);
   React.useEffect(() => {}, [isModalOpened]);
   return (
@@ -116,11 +127,19 @@ const UpdateTaskButton: React.FC<IProps> = ({
             }
             isCorrect={description.isValid}
             placeholder={"task description"}
-            errorMessage={"must provide description"}
+            errorMessage={"description should be between 1 and 200 characters"}
           />
+          <div className={S.isDoneContainer}>
+            task completed?
+            <div
+              className={isDone ? S.isDoneBoxTrue : S.isDoneBoxFalse}
+              onClick={() => setIsDone(!isDone)}
+            ></div>
+          </div>
           <button
             className={S.patchTaskButton}
             style={{
+              marginTop: "2rem",
               opacity: isValid && !isWaiting ? 1 : 0.5,
               cursor: isValid && !isWaiting ? "pointer" : "auto",
             }}

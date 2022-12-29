@@ -10,6 +10,7 @@ const mapStateToProps = (store: store) => ({
   requestToken: store.user.userData?.token,
   requestUsername: store.user.userData?.user?.username,
   tasks: store.tasks.tasks,
+  singleTask: store.tasks.singleTask,
 });
 
 const mapDispatchToProps = () => {
@@ -32,6 +33,7 @@ const TaskManger = ({
   requestUsername,
   tasks,
   fetchTasks,
+  singleTask,
 }: Props) => {
   const router = useRouter();
 
@@ -40,9 +42,10 @@ const TaskManger = ({
       router.push("/");
     }
   }, [requestToken]);
-  if ((tasks.length = 0)) {
+  React.useEffect(() => {
     fetchTasks();
-  }
+  }, [singleTask]);
+  React.useEffect(() => {}, [tasks]);
 
   return (
     <main className="taskManager">
@@ -56,18 +59,6 @@ const TaskManger = ({
         {tasks.map((el: singleTask, id: number) => {
           return <SingleTask task={el} key={id} />;
         })}
-        <SingleTask
-          task={{
-            name: "nazwa",
-            description:
-              "bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis bardzo długi opis ",
-            isDone: false,
-            createdBy: "639ddea28ff07f3cd6965686",
-            _id: "63a4559b40a61c47dd010613",
-            createdAt: "2022-12-22T13:03:23.915Z",
-            updatedAt: "2022-12-22T13:03:23.915Z",
-          }}
-        />
       </div>
     </main>
   );

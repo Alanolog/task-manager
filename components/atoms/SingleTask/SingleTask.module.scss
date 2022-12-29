@@ -15,10 +15,34 @@
     font-size: 600;
   }
   p {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 300;
+  }
+  .deleteTaskButton {
+    padding: 3px 6px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $color-primary;
+    box-shadow: 4px 4px 10px $color-primary;
+    background-color: $color-red;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    :focus {
+      outline: none;
+    }
+  }
+}
+.doneTask {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    border: 0;
+    height: 1px;
+    background: $color-black;
+    top: 50%;
+    left: 0;
+    width: 100%;
   }
 }

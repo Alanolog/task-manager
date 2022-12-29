@@ -36,17 +36,17 @@ const taskReducer = (
     }
     case FETCH_TASKS_FAILURE: {
       return {
+        ...state,
         loading: false,
         tasks: [],
-        singleTask: {},
         error: action.payload,
       };
     }
     case FETCH_TASKS_SUCCESS: {
       return {
+        ...state,
         loading: false,
         tasks: action.payload,
-        singleTask: {},
         error: "",
       };
     }
@@ -58,16 +58,16 @@ const taskReducer = (
     }
     case FETCH_SINGLE_TASK_FAILURE: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: {},
         error: action.payload,
       };
     }
     case FETCH_SINGLE_TASK_SUCCESS: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: action.payload,
         error: "",
       };
@@ -80,16 +80,16 @@ const taskReducer = (
     }
     case CREATE_TASK_FAILURE: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: {},
         error: action.payload,
       };
     }
     case CREATE_TASK_SUCCESS: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: action.payload,
         error: "",
       };
@@ -102,16 +102,16 @@ const taskReducer = (
     }
     case PATCH_TASK_FAILURE: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: {},
         error: action.payload,
       };
     }
     case PATCH_TASK_SUCCESS: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: action.payload,
         error: "",
       };
@@ -124,16 +124,16 @@ const taskReducer = (
     }
     case DELETE_TASK_FAILURE: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: {},
         error: action.payload,
       };
     }
     case DELETE_TASK_SUCCESS: {
       return {
+        ...state,
         loading: false,
-        tasks: [],
         singleTask: action.payload,
         error: "",
       };

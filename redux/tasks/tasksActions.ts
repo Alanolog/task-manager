@@ -107,14 +107,14 @@ export const deleteTaskRequest = () => {
 };
 export const deleteTaskFailure = (error: any) => {
   return {
-    type: DELETE_TASK_SUCCESS,
+    type: DELETE_TASK_FAILURE,
     payload: error,
   };
 };
 
 export const deleteTaskSuccess = () => {
   return {
-    type: PATCH_TASK_SUCCESS,
+    type: DELETE_TASK_SUCCESS,
     payload: "Success",
   };
 };
@@ -147,7 +147,8 @@ export const createTask = (name: String, description: String) => {
 export const patchTask = (
   taskID: string,
   name?: String,
-  description?: String
+  description?: String,
+  isDone?: boolean
 ) => {
   return (dispatch: Dispatch) => {
     dispatch(patchTaskRequest());
@@ -157,6 +158,7 @@ export const patchTask = (
         {
           name,
           description,
+          isDone,
         },
         {
           headers: {

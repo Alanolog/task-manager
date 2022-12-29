@@ -34,7 +34,8 @@ const AddTask: React.FC<Props> = ({ isWaiting, createTask }) => {
   });
 
   const isValidName = (name: string) => name?.length <= 20 && name?.length >= 1;
-  const isValidDescription = (description: string) => description?.length >= 1;
+  const isValidDescription = (description: string) =>
+    description?.length >= 1 && description?.length <= 200;
   const isValid =
     isValidName(name.value) && isValidDescription(description.value);
 
@@ -79,7 +80,7 @@ const AddTask: React.FC<Props> = ({ isWaiting, createTask }) => {
           }
           isCorrect={description.isValid}
           placeholder={"task description"}
-          errorMessage={"must provide description"}
+          errorMessage={"description should be between 1 and 200 characters"}
         />
       </div>
       <button

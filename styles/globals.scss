@@ -67,6 +67,19 @@ a {
   display: inline-block;
   width: 24px;
   height: 24px;
+  &-green {
+    &:after {
+      content: " ";
+      display: block;
+      width: 16px;
+      height: 16px;
+      margin: 2px;
+      border-radius: 50%;
+      border: 3px solid $color-green;
+      border-color: $color-green transparent $color-green transparent;
+      animation: loader 1.2s linear infinite;
+    }
+  }
   &:after {
     content: " ";
     display: block;

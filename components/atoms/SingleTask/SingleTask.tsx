@@ -11,9 +11,23 @@ interface IProps {
 export const SingleTask: React.FC<IProps> = ({ task }) => {
   const dispatch = useAppDispatch();
   return (
-    <div className={S.task}>
+    <div className={`${S.task} ${task.isDone ? S.doneTask : ""}`}>
       <h5>{task.name}</h5>
-      <UpdateTaskButton taskID={task._id} taskData={task} />
+      <p>{task.description}</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <UpdateTaskButton taskID={task._id} taskData={task} />
+        <button
+          onClick={() =>
+            dispatch(
+              //@ts-ignore redux thunk dont work with ts properly
+              deleteTask(task._id)
+            )
+          }
+          className={S.deleteTaskButton}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };
