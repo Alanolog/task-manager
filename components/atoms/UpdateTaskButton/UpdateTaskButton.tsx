@@ -63,13 +63,12 @@ const UpdateTaskButton: React.FC<IProps> = ({
     }
   };
   React.useEffect(() => {
-    if (Object.keys(task).length !== 0) {
-      setName({
-        value: "",
-        isValid: true,
-      });
-    }
-  }, [task]);
+    setName({
+      value: taskData.name,
+      isValid: true,
+    });
+    setIsDone(taskData.isDone);
+  }, [taskData]);
   React.useEffect(() => {}, [isModalOpened]);
   return (
     <div>
