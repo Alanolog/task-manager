@@ -143,7 +143,7 @@ export const createTask = (name: String) => {
       });
   };
 };
-export const patchTask = (taskID: string, name?: String, isDone?: boolean) => {
+export const patchTask = (taskID: String, name?: String, isDone?: boolean) => {
   return (dispatch: Dispatch) => {
     dispatch(patchTaskRequest());
     axios
@@ -168,7 +168,7 @@ export const patchTask = (taskID: string, name?: String, isDone?: boolean) => {
       });
   };
 };
-export const deleteTask = (taskID: string) => {
+export const deleteTask = (taskID: String) => {
   return (dispatch: Dispatch) => {
     dispatch(deleteTaskRequest());
     axios

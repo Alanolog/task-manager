@@ -48,9 +48,9 @@ export const PostLoginFailure = (error: any) => {
 };
 
 export const registerAction = (
-  username: string,
-  email: string,
-  password: string
+  username: String,
+  email: String,
+  password: String
 ) => {
   return (dispatch: Dispatch) => {
     dispatch(postRegisterRequest());
@@ -71,7 +71,7 @@ export const registerAction = (
   };
 };
 
-export const loginAction = (email: string, password: string) => {
+export const loginAction = (email: String, password: String) => {
   return (dispatch: Dispatch) => {
     dispatch(postLoginRequest());
     axios

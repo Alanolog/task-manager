@@ -1,32 +1,26 @@
 import React from "react";
 import S from "./AddTask.module.scss";
-import { StyledInput, StyledTextarea } from "../../index";
+import { StyledInput } from "../../index";
 import { createTask } from "../../../redux";
-
-import { useAppDispatch } from "../../../redux/hooks";
-import { store } from "../../../models";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 import { connect, ConnectedProps } from "react-redux";
+import { store } from "../../../models";
 
 const mapStateToProps = (store: store) => ({
   isWaiting: store.tasks.loading,
 });
 
-const mapDispatchToProps = () => {
-  const dispatch = useAppDispatch();
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, never, AnyAction>) => {
   return {
-    createTask: (name: String) =>
-      dispatch(
-        //@ts-ignore redux thunk dont work with ts properly
-        createTask(name)
-      ),
+    createTask: (name: String) => dispatch(createTask(name)),
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-interface Props extends PropsFromRedux {}
 
-const AddTask: React.FC<Props> = ({ isWaiting, createTask }) => {
+const AddTask: React.FC<PropsFromRedux> = ({ isWaiting, createTask }) => {
   const [name, setName] = React.useState({ value: "", isValid: true });
 
   const isValidName = (name: string) => name?.length <= 20 && name?.length >= 1;
@@ -38,7 +32,6 @@ const AddTask: React.FC<Props> = ({ isWaiting, createTask }) => {
     e.preventDefault();
     setName({ ...name, isValid: isValidName(name.value) });
     if (isValid) {
-      //@ts-ignore redux thunk dont work with ts properly
       createTask(name.value);
     }
   };

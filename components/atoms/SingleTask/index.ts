@@ -1,1 +1,2 @@
-export { SingleTask } from "./SingleTask";
+import SingleTask from "./SingleTask";
+export { SingleTask };

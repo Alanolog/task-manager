@@ -1,17 +1,32 @@
 import React from "react";
 import { StyledInput } from "../../index";
 import S from "./SignUpForm.module.scss";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { registerAction } from "../../../redux";
 import { validateEmail } from "../../../models/validateEmail";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
+import { connect, ConnectedProps } from "react-redux";
+import { store } from "../../../models";
 
-export const SignUpForm: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const requestErrorMsg = useAppSelector((store) => store.user.error);
-  const requestUsername = useAppSelector(
-    (store) => store.user.userData?.user?.username
-  );
+const mapStateToProps = (store: store) => ({
+  requestUsername: store.user.userData?.user?.username,
+  requestErrorMsg: store.user.error,
+});
 
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, never, AnyAction>) => {
+  return {
+    registerAction: (username: String, email: String, password: String) =>
+      dispatch(registerAction(username, email, password)),
+  };
+};
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const SignUpForm: React.FC<PropsFromRedux> = ({
+  registerAction,
+  requestUsername,
+  requestErrorMsg,
+}) => {
   const [username, setUsername] = React.useState({ value: "", isValid: true });
   const [email, setEmail] = React.useState({ value: "", isValid: true });
   const [password, setPassword] = React.useState({ value: "", isValid: true });
@@ -41,10 +56,7 @@ export const SignUpForm: React.FC = () => {
     setEmail({ ...email, isValid: isValidEmail(email.value) });
     setPassword({ ...password, isValid: isValidPassword(password.value) });
     if (isValid) {
-      dispatch(
-        //@ts-ignore redux thunk dont work with ts properly
-        registerAction(username.value, email.value, password.value)
-      );
+      registerAction(username.value, email.value, password.value);
     }
   };
 
@@ -110,3 +122,4 @@ export const SignUpForm: React.FC = () => {
     </form>
   );
 };
+export default connector(SignUpForm);

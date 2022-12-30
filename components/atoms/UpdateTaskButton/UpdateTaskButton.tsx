@@ -1,8 +1,9 @@
 import React from "react";
 import S from "./UpdateTaskButton.module.scss";
-import { useAppDispatch } from "../../../redux/hooks";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 import { patchTask, fetchSingleTask } from "../../../redux";
-import { StyledInput, StyledTextarea } from "../../index";
+import { StyledInput } from "../../index";
 import { store, singleTask } from "../../../models";
 import { connect, ConnectedProps } from "react-redux";
 
@@ -11,19 +12,11 @@ const mapStateToProps = (store: store) => ({
   isWaiting: store.tasks.loading,
 });
 
-const mapDispatchToProps = () => {
-  const dispatch = useAppDispatch();
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, never, AnyAction>) => {
   return {
-    fetchSingleTask: (taskID: String) =>
-      dispatch(
-        //@ts-ignore redux thunk dont work with ts properly
-        fetchSingleTask(taskID)
-      ),
+    fetchSingleTask: (taskID: String) => dispatch(fetchSingleTask(taskID)),
     patchTask: (taskID: String, name: String, isDone: boolean) =>
-      dispatch(
-        //@ts-ignore redux thunk dont work with ts properly
-        patchTask(taskID, name, isDone)
-      ),
+      dispatch(patchTask(taskID, name, isDone)),
   };
 };
 

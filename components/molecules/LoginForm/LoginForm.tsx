@@ -1,17 +1,32 @@
 import React from "react";
 import { StyledInput } from "../../index";
 import S from "./LoginForm.module.scss";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { loginAction } from "../../../redux";
 import { validateEmail } from "../../../models/validateEmail";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
+import { connect, ConnectedProps } from "react-redux";
+import { store } from "../../../models";
 
-export const LoginForm: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const requestErrorMsg = useAppSelector((store) => store.user.error);
-  const requestUsername = useAppSelector(
-    (store) => store.user.userData?.user?.username
-  );
+const mapStateToProps = (store: store) => ({
+  requestUsername: store.user.userData?.user?.username,
+  requestErrorMsg: store.user.error,
+});
 
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, never, AnyAction>) => {
+  return {
+    loginAction: (email: String, password: String) =>
+      dispatch(loginAction(email, password)),
+  };
+};
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const LoginForm: React.FC<PropsFromRedux> = ({
+  loginAction,
+  requestUsername,
+  requestErrorMsg,
+}) => {
   const [email, setEmail] = React.useState({ value: "", isValid: true });
   const [password, setPassword] = React.useState({ value: "", isValid: true });
 
@@ -34,10 +49,7 @@ export const LoginForm: React.FC = () => {
     setEmail({ ...email, isValid: isValidEmail(email.value) });
     setPassword({ ...password, isValid: isValidPassword(password.value) });
     if (isValid) {
-      dispatch(
-        //@ts-ignore redux thunk dont work with ts properly
-        loginAction(email.value, password.value)
-      );
+      loginAction(email.value, password.value);
     }
   };
 
@@ -89,3 +101,4 @@ export const LoginForm: React.FC = () => {
     </form>
   );
 };
+export default connector(LoginForm);

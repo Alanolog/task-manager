@@ -1,7 +1,8 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "../redux/hooks";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 import { AddTask, SingleTask } from "../components";
 import { fetchTasks } from "../redux";
 import { singleTask, store } from "../models";
@@ -13,14 +14,9 @@ const mapStateToProps = (store: store) => ({
   singleTask: store.tasks.singleTask,
 });
 
-const mapDispatchToProps = () => {
-  const dispatch = useAppDispatch();
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, never, AnyAction>) => {
   return {
-    fetchTasks: () =>
-      dispatch(
-        //@ts-ignore redux thunk dont work with ts properly
-        fetchTasks()
-      ),
+    fetchTasks: () => dispatch(fetchTasks()),
   };
 };
 
