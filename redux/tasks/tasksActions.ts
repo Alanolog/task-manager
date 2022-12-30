@@ -126,7 +126,7 @@ export const createTask = (name: String) => {
       .post(
         "https://alan-rutyna-api.onrender.com/api/v1/tasks",
         {
-          name,
+          name: name,
         },
         {
           headers: {
