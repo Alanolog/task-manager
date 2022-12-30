@@ -2,11 +2,21 @@
 .header {
   color: $color-white;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 1rem;
   align-items: center;
   font-size: 3rem;
   border-bottom: 1px solid $color-gray;
   font-weight: 500;
-  padding: 1rem 0;
+  padding: 1rem;
   min-height: 96px;
+
+  a {
+    display: flex;
+    cursor: pointer;
+    align-self: flex-start;
+    color: $color-white;
+    font-size: 0.75rem;
+    text-decoration: underline;
+  }
 }

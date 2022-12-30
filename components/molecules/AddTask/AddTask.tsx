@@ -14,10 +14,10 @@ const mapStateToProps = (store: store) => ({
 const mapDispatchToProps = () => {
   const dispatch = useAppDispatch();
   return {
-    createTask: (name: String, description: String) =>
+    createTask: (name: String) =>
       dispatch(
         //@ts-ignore redux thunk dont work with ts properly
-        createTask(name, description)
+        createTask(name)
       ),
   };
 };
@@ -28,29 +28,18 @@ interface Props extends PropsFromRedux {}
 
 const AddTask: React.FC<Props> = ({ isWaiting, createTask }) => {
   const [name, setName] = React.useState({ value: "", isValid: true });
-  const [description, setDescription] = React.useState({
-    value: "",
-    isValid: true,
-  });
 
   const isValidName = (name: string) => name?.length <= 20 && name?.length >= 1;
-  const isValidDescription = (description: string) =>
-    description?.length >= 1 && description?.length <= 200;
-  const isValid =
-    isValidName(name.value) && isValidDescription(description.value);
+  const isValid = isValidName(name.value);
 
   const createTaskBtnHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
     setName({ ...name, isValid: isValidName(name.value) });
-    setDescription({
-      ...description,
-      isValid: isValidDescription(description.value),
-    });
     if (isValid) {
       //@ts-ignore redux thunk dont work with ts properly
-      createTask(name.value, description.value);
+      createTask(name.value);
     }
   };
 
@@ -69,18 +58,6 @@ const AddTask: React.FC<Props> = ({ isWaiting, createTask }) => {
           isCorrect={name.isValid}
           placeholder={"task name"}
           errorMessage={"name should be between 1 and 20 characters"}
-        />
-        <StyledTextarea
-          value={description.value}
-          onChange={(e) =>
-            setDescription({
-              isValid: isValidDescription(e.target.value),
-              value: e.target.value,
-            })
-          }
-          isCorrect={description.isValid}
-          placeholder={"task description"}
-          errorMessage={"description should be between 1 and 200 characters"}
         />
       </div>
       <button

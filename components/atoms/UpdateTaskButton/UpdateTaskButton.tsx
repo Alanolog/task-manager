@@ -19,15 +19,10 @@ const mapDispatchToProps = () => {
         //@ts-ignore redux thunk dont work with ts properly
         fetchSingleTask(taskID)
       ),
-    patchTask: (
-      taskID: String,
-      name: String,
-      description: String,
-      isDone: boolean
-    ) =>
+    patchTask: (taskID: String, name: String, isDone: boolean) =>
       dispatch(
         //@ts-ignore redux thunk dont work with ts properly
-        patchTask(taskID, name, description, isDone)
+        patchTask(taskID, name, isDone)
       ),
   };
 };
@@ -53,37 +48,22 @@ const UpdateTaskButton: React.FC<IProps> = ({
     value: taskData.name,
     isValid: true,
   });
-  const [description, setDescription] = React.useState({
-    value: taskData.description,
-    isValid: true,
-  });
   const [isDone, setIsDone] = React.useState(taskData.isDone);
 
   const isValidName = (name: string) => name?.length <= 20 && name?.length >= 1;
-  const isValidDescription = (description: string) =>
-    description?.length >= 1 && description.length <= 200;
-  const isValid =
-    isValidName(name.value) && isValidDescription(description.value);
+  const isValid = isValidName(name.value);
 
   const patchTaskButtonHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
     setName({ ...name, isValid: isValidName(name.value) });
-    setDescription({
-      ...description,
-      isValid: isValidDescription(description.value),
-    });
     if (isValid) {
-      patchTask(taskID, name.value, description.value, isDone);
+      patchTask(taskID, name.value, isDone);
     }
   };
   React.useEffect(() => {
     if (Object.keys(task).length !== 0) {
-      setDescription({
-        value: "",
-        isValid: true,
-      });
       setName({
         value: "",
         isValid: true,
@@ -116,18 +96,6 @@ const UpdateTaskButton: React.FC<IProps> = ({
             isCorrect={name.isValid}
             placeholder={"task name"}
             errorMessage={"name should be between 1 and 20 characters"}
-          />
-          <StyledTextarea
-            value={description.value}
-            onChange={(e) =>
-              setDescription({
-                isValid: isValidDescription(e.target.value),
-                value: e.target.value,
-              })
-            }
-            isCorrect={description.isValid}
-            placeholder={"task description"}
-            errorMessage={"description should be between 1 and 200 characters"}
           />
           <div className={S.isDoneContainer}>
             task completed?

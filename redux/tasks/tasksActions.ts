@@ -119,7 +119,7 @@ export const deleteTaskSuccess = () => {
   };
 };
 
-export const createTask = (name: String, description: String) => {
+export const createTask = (name: String) => {
   return (dispatch: Dispatch) => {
     dispatch(createTaskRequest());
     axios
@@ -127,7 +127,6 @@ export const createTask = (name: String, description: String) => {
         "https://alan-rutyna-api.onrender.com/api/v1/tasks",
         {
           name,
-          description,
         },
         {
           headers: {
@@ -144,12 +143,7 @@ export const createTask = (name: String, description: String) => {
       });
   };
 };
-export const patchTask = (
-  taskID: string,
-  name?: String,
-  description?: String,
-  isDone?: boolean
-) => {
+export const patchTask = (taskID: string, name?: String, isDone?: boolean) => {
   return (dispatch: Dispatch) => {
     dispatch(patchTaskRequest());
     axios
@@ -157,7 +151,6 @@ export const patchTask = (
         `https://alan-rutyna-api.onrender.com/api/v1/tasks/${taskID}`,
         {
           name,
-          description,
           isDone,
         },
         {

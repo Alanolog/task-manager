@@ -1,7 +1,7 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { useRouter } from "next/router";
-import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
 import { AddTask, SingleTask } from "../components";
 import { fetchTasks } from "../redux";
 import { singleTask, store } from "../models";

@@ -13,7 +13,6 @@ export const SingleTask: React.FC<IProps> = ({ task }) => {
   return (
     <div className={`${S.task} ${task.isDone ? S.doneTask : ""}`}>
       <h5>{task.name}</h5>
-      <p>{task.description}</p>
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <UpdateTaskButton taskID={task._id} taskData={task} />
         <button
