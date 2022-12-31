@@ -10,7 +10,9 @@
   font-weight: 500;
   padding: 1rem;
   min-height: 96px;
-
+  @media (max-width: 600px) {
+    font-size: 2rem;
+  }
   a {
     display: flex;
     cursor: pointer;

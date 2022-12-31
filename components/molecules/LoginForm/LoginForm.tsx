@@ -82,7 +82,11 @@ const LoginForm: React.FC<PropsFromRedux> = ({
         errorMessage={"Please provide valid password!"}
       />
       {isValid && requestErrorMsg.length > 1 ? (
-        <p className={S.authError}>Something went wrong try again later...</p>
+        <p className={S.authError}>
+          {requestErrorMsg === "Request failed with status code 500"
+            ? "Password/Email incorrect"
+            : "Something went wrong try again later..."}
+        </p>
       ) : isValid && requestUsername.length > 1 ? (
         <p className={S.authSuccess}>Welcome back {requestUsername}</p>
       ) : (

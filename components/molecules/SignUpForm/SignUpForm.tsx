@@ -101,7 +101,11 @@ const SignUpForm: React.FC<PropsFromRedux> = ({
         errorMessage={"Please provide valid password!"}
       />
       {isValid && requestErrorMsg.length > 1 ? (
-        <p className={S.authError}>Something went wrong try again later...</p>
+        <p className={S.authError}>
+          {requestErrorMsg === "Request failed with status code 400"
+            ? "Email is already in use"
+            : "Something went wrong try again later..."}
+        </p>
       ) : isValid && requestUsername.length > 1 ? (
         <p className={S.authSuccess}>
           {requestUsername}, your account was succefully created

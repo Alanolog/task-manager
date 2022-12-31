@@ -6,11 +6,14 @@
   font-weight: 600;
   font-size: 1rem;
   width: 250px;
+  @media (max-width: 600px) {
+    width: 200px;
+  }
   .input {
     font-size: 0.75rem;
     padding: 5px 5px 5px 8px;
     border-radius: 5px;
-    border: 2px solid $color-white;
+    border: 2px solid $color-gray;
     box-shadow: 4px 4px 10px $color-primary;
     background-color: $color-white;
     color: $color-primary;

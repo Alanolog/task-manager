@@ -120,6 +120,9 @@ export const deleteTaskSuccess = () => {
 };
 
 export const createTask = (name: String) => {
+  if (typeof window !== "undefined" && windowToken === null) {
+    windowToken = window?.localStorage?.getItem("token");
+  }
   return (dispatch: Dispatch) => {
     dispatch(createTaskRequest());
     axios
@@ -144,6 +147,9 @@ export const createTask = (name: String) => {
   };
 };
 export const patchTask = (taskID: String, name?: String, isDone?: boolean) => {
+  if (typeof window !== "undefined" && windowToken === null) {
+    windowToken = window?.localStorage?.getItem("token");
+  }
   return (dispatch: Dispatch) => {
     dispatch(patchTaskRequest());
     axios
@@ -169,6 +175,9 @@ export const patchTask = (taskID: String, name?: String, isDone?: boolean) => {
   };
 };
 export const deleteTask = (taskID: String) => {
+  if (typeof window !== "undefined" && windowToken === null) {
+    windowToken = window?.localStorage?.getItem("token");
+  }
   return (dispatch: Dispatch) => {
     dispatch(deleteTaskRequest());
     axios
@@ -187,6 +196,9 @@ export const deleteTask = (taskID: String) => {
 };
 
 export const fetchSingleTask = (taskID: String) => {
+  if (typeof window !== "undefined" && windowToken === null) {
+    windowToken = window?.localStorage?.getItem("token");
+  }
   return (dispatch: Dispatch) => {
     dispatch(fetchSingleTaskRequest());
     axios
@@ -206,6 +218,9 @@ export const fetchSingleTask = (taskID: String) => {
 };
 
 export const fetchTasks = () => {
+  if (typeof window !== "undefined" && windowToken === null) {
+    windowToken = window?.localStorage?.getItem("token");
+  }
   return (dispatch: Dispatch) => {
     dispatch(fetchTasksRequest());
     axios
