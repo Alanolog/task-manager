@@ -11,6 +11,8 @@ import { store } from "../../../models";
 const mapStateToProps = (store: store) => ({
   requestUsername: store.user.userData?.user?.username,
   requestErrorMsg: store.user.error,
+  isWaitingTasks: store.tasks.loading,
+  isWaitingUser: store.user.loading,
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, never, AnyAction>) => {
@@ -26,6 +28,8 @@ const LoginForm: React.FC<PropsFromRedux> = ({
   loginAction,
   requestUsername,
   requestErrorMsg,
+  isWaitingTasks,
+  isWaitingUser,
 }) => {
   const [email, setEmail] = React.useState({ value: "", isValid: true });
   const [password, setPassword] = React.useState({ value: "", isValid: true });
@@ -100,7 +104,11 @@ const LoginForm: React.FC<PropsFromRedux> = ({
         className="authButton"
         onClick={(e) => (isValid ? loginBtnHandler(e) : e.preventDefault())}
       >
-        Login
+        {isWaitingTasks || isWaitingUser ? (
+          <div className="loader"></div>
+        ) : (
+          "Login"
+        )}
       </button>
     </form>
   );
